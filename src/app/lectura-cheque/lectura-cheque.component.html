@@ -1,0 +1,278 @@
+<div class="row">
+    <ng-progress #progressBar id="pBar"></ng-progress>
+    <div class="col-md-12" style="top: 5em">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon" id="card">
+                <div class="card-icon">
+                    <i class="fa fa-list-ul"></i>
+                </div>
+            </div>
+            <mat-tab-group class="frmContent" style="margin-bottom: 20px; overflow: inherit;"
+                [(selectedIndex)]=selectedMat (selectedTabChange)="limpiarTabs($event)">
+                <mat-tab label="Validación de Cheque" style="overflow: inherit;" name="CAMARAWEB_TAB_VALCHEQUE"
+                    id="idTabValCheque">
+                    <form autocomplete="off" style="margin:10px 15%">
+                        <div class="row" style="width: 100%">
+                            <div class="form-group col-md-11" style="text-align: right">
+                                <strong>Ingrese el porcentaje de aceptación: </strong>
+                            </div>
+                            <div class="form-group col-md-1" style="text-align: right">
+                                <input type="number" id="idPorcentaje" name="VALCHEQUE_PORCENTAJE" matInput min="0"
+                                    max="100" id="porcentaje" [(ngModel)]="coincidenciaPorcentaje">
+                            </div>
+                            <div class="form-group col-md-12" style="top: 10px">
+                                <input type="file" id="idImagenValCheque" name="imagenFirma" class="custom-file-input"
+                                    onclick="this.value=null;" (change)="onFileChanged($event)" multiple
+                                    accept=".jpg, .jpeg, .tif, .bmp" (click)="bandereSeleccion(1)">
+                                <label class="custom-file-label" style="text-align: left; right: 20px; "
+                                    data-browse="Seleccionar archivo" id="nombreArchivoCheque"
+                                    name="nombreArchivoCheque"></label>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <mat-form-field style="width: 101%; margin-left: -15px;">
+                                    <mat-label>Cuenta</mat-label>
+                                    <mat-select name="VALCHEQUE_CUENTA_CHEQUE" id="idCtaCheque"
+                                        (selectionChange)="obtenerTitularCuenta($event.value)" [(ngModel)]="cta">
+                                        <mat-option *ngFor="let item of getCuentas.cuentas" [value]="item">
+                                            {{item.cta}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-checkbox id="idChkPanelReferencia" name="chkPanelTitulares"
+                                    [hidden]="!pnlTitulares" #ckeckBoxReferencia matTooltip="Administrar Referencias"
+                                    style="position: absolute; margin-top: 24px; margin-left: 3px;" [(ngModel)]="chkPnl"></mat-checkbox>
+                            </div>
+
+                            <div class="col-md-12" style="left: -7px; padding: 15px">
+                                <mat-accordion id="idAccordionPnlReferencias">
+                                    <mat-expansion-panel
+                                        style="background-color: #f7f7f7; margin-bottom: 25px; width: 104%; margin-left: -11px;"
+                                        *ngIf="ckeckBoxReferencia.checked">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Agregar Referencias
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+
+                                        <div class="row" *ngFor="let item of listaReferencias; let i = index;"
+                                            style="margin-bottom: 10px">
+                                            <div class="form-group col-md-5">
+                                                <mat-form-field style="width: 100%;">
+                                                    <input type="text" name="referencia{{i}}" matInput
+                                                        placeholder="Referencia"
+                                                        [(ngModel)]="item.firmaReferenciaNombre" disabled>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <mat-form-field style="width: 100%;">
+                                                    <input type="text" name="titular{{i}}" matInput
+                                                        placeholder="Titular" [(ngModel)]="item.titular" disabled>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-1" style="text-align: center;">
+                                                <button class="btn button" type="submit"
+                                                    (click)="eliminarReferencia(item)" matTooltip="Eliminar Referencia"
+                                                    id="btnResponsive">
+                                                    <fa name="minus"></fa>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12" *ngIf="listaReferencias.length >= 1">
+                                                <label for="" style="font-weight: bold"> Agregar Referencia</label>
+                                            </div>
+                                            <div class="form-group col-md-12" style="top: 5px">
+                                                <input type="file" class="custom-file-input" onclick="this.value=null;"
+                                                    (change)="onFileChanged($event)" multiple
+                                                    accept=".jpg, .jpeg, .tif, .bmp" (click)="bandereSeleccion(2)"
+                                                    name="referencia" id="idImagenChequeReferencia">
+                                                <label class="custom-file-label"
+                                                    style="text-align: left; margin-left: 13px"
+                                                    data-browse="Seleccionar archivo" id="nombreArchivoReferencia"
+                                                    name="nombreArchivoReferencia"></label>
+                                            </div>
+                                            <div class="form-group col-md-11">
+                                                <mat-form-field style="width: 100%">
+                                                    <mat-label>Titular</mat-label>
+                                                    <mat-select name="titular" id="idTitularChequeReferencia"
+                                                        (selectionChange)="obtenerNombreTitular($event.value)"
+                                                        [(ngModel)]="itemTitular">
+                                                        <mat-option *ngFor="let item of titulares" [value]="item">
+                                                            {{item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="form-group col-md-1">
+                                                <button class="btn button" type="submit" (click)="agregarReferecia()"
+                                                    matTooltip="Agregar Referencia" id="idBtnAgregarReferencia"
+                                                    style="margin: 5px -16px;">
+                                                    <fa name="plus"></fa>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-12" style="text-align: right;">
+                                                <button class="btn button" type="submit" (click)="guardarReferecias()"
+                                                    matTooltip="Guardar Referencias" id="idBtnGuardarReferencia"
+                                                    style="margin: 0px -16px;">
+                                                    <fa name="save"></fa>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+
+                            <div class="col-md-12" style="left: -7px; padding: 15px">
+                                <mat-accordion id="idAccordionPnlEliminarReferencias">
+                                    <mat-expansion-panel
+                                        style="background-color: #f7f7f7; margin-bottom: 25px; width: 104%; margin-left: -11px;"
+                                        *ngIf="ckeckBoxReferencia.checked">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Eliminar Referencias
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <mat-form-field style="width: 100%">
+                                                    <mat-label>Titular</mat-label>
+                                                    <mat-select name="titularEliminar" id="idEliminarTitularChequeReferencia"
+                                                        (selectionChange)="obtenerNombreTitular($event.value)"
+                                                        [(ngModel)]="eliminarItemTitular">
+                                                        <mat-option *ngFor="let item of titulares" [value]="item">
+                                                            {{item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-md-12" style="text-align: right;">
+                                                <button class="btn button" type="submit" (click)="eliminaFileReferecias()"
+                                                    matTooltip="Eliminar Referencias" id="idBtnEliminarReferencia"
+                                                    style="margin: 0px -16px;">
+                                                    <fa name="trash"></fa>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+
+                            <div class="form-group col-md-12"
+                                style="text-align: right; margin-top: -2%; margin-left: 0px;">
+                                <button class="btn button" (click)="validarFirmaCheque(1)" id="idBtnValidarFirma"
+                                    matTooltip="Validar Firma">
+                                    <fa name="upload"></fa>
+                                </button>
+                                <button id="idBtnLimpiar" class="btn button" (click)="limpiarValCheque()"
+                                    matTooltip="Limpiar">
+                                    <fa name="eraser"></fa>
+                                </button>
+                            </div>
+
+                            <div class="alert alert-success alert-dismissible fade show col-md-12"
+                                [hidden]="!pnlBastanteo">
+                                El porcentaje de coincidencia fue de
+                                <strong>{{responseValidaFirma.porcentaje}}%</strong>
+                                lo cual sobrepasa el umbral indicado.
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-tab>
+                <mat-tab id="idTabExtraFirmas" label="Extracción de Firmas" style="overflow: inherit;">
+                    <form autocomplete="off" style="margin:10px 15%">
+                        <div class="row" style="width: 100%">
+                            <div class="col-md-12">
+                                <label for="" style="font-weight: bold"> Agregar Contrato</label>
+                            </div>
+                            <div class="form-group col-md-12" style="top: 5px">
+                                <input type="file" id="idExtraImagen" name="extraImagenFirma" class="custom-file-input"
+                                    onclick="this.value=null;" (change)="onFileChanged($event)" multiple
+                                    accept=".jpg, .jpeg, .tif, .bmp" (click)="bandereSeleccion(3)" name="contrato">
+                                <label class="custom-file-label" style="text-align: left; margin-left: 13px;"
+                                    data-browse="Seleccionar archivo" id="nombreArchivoContrato"
+                                    name="nombreArchivoContrato"></label>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <mat-form-field style="width: 101%">
+                                    <mat-label>Cuenta</mat-label>
+                                    <mat-select name="ctaContrato" id="idCtaContrato"
+                                        (selectionChange)="obtenerTitularCuenta($event.value)" [(ngModel)]="cta">
+                                        <mat-option *ngFor="let item of getCuentas.cuentas" [value]="item">
+                                            {{item.cta}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <mat-form-field style="width: 101%;">
+                                    <mat-label>Titular</mat-label>
+                                    <mat-select name="titularContrato" id="idTitularContrato"
+                                        (selectionChange)="obtenerNombreTitular($event.value)"
+                                        [(ngModel)]="itemTitular">
+                                        <mat-option *ngFor="let item of titulares" [value]="item">
+                                            {{item}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12" style="margin-left: 9px;">
+                                <button id="idBtnExtracRef" class="btn button" type="submit"
+                                    (click)="extraerReferenciaDeContrato(2)" matTooltip="Extraer Referencias">
+                                    <fa name="download"></fa>
+                                </button>
+                                <button id="idBtnLimpiar" class="btn button" (click)="limpiarDatoContrato()"
+                                    matTooltip="Limpiar">
+                                    <fa name="eraser"></fa>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+<!---PopPup Valores Repeditos-->
+<div class="modal" id="validacionFirmaCheque">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;"
+                            *ngIf="pnlBastanteo === true">
+                            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);">
+                            </div>
+                            <span class="swal2-success-line-tip"></span>
+                            <span class="swal2-success-line-long"></span>
+                            <div class="swal2-success-ring"></div>
+                            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                            <div class="swal2-success-circular-line-right"
+                                style="background-color: rgb(255, 255, 255);"></div>
+                        </div>
+                        <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;"
+                            *ngIf="pnlBastanteo === false">
+                            <span class="swal2-x-mark">
+                                <span class="swal2-x-mark-line-left"></span>
+                                <span class="swal2-x-mark-line-right"></span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align: center">
+                        <p style="font-size: 20px; font-weight: bold">{{this.msjValidaFirma}}</p>
+                    </div>
+                    <!--<div class="col-md-12" style="text-align: center">
+                        <p style="font-size: 20px; font-weight: bold">{{this.msjValidaChk}}</p>
+                    </div>-->
+                    <div class="col-md-12" style="text-align: center">
+                        <button class="btn" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

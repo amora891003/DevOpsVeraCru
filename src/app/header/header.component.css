@@ -1,0 +1,12 @@
+.rowHead {
+    -moz-box-shadow: 0 4px 7px rgba(0, 0, 0, 0.81);
+    -webkit-box-shadow: 0 4px 7px rgba(0, 0, 0, 0.81);
+    box-shadow:0 4px 7px rgba(0, 0, 0, 0.81);
+    background-color: #EC0000;
+    background-image: linear-gradient(to bottom, #EC0000, black 300%);
+    margin-bottom: 20px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+  }

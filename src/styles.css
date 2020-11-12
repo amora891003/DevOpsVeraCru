@@ -1,0 +1,103 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    font-family: Roboto,"Helvetica Neue",sans-serif !important;
+}
+body {
+    margin: 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif !important;
+    background-color: #e6e6e6b8;
+}
+ng-progress[fixed=true][spinnerPosition=left] .ng-spinner {
+    left: 50% !important;
+    top: 50% !important;
+    margin-left: -60px !important;
+    margin-top: -50px !important;
+}
+ng-progress[thick=true] .ng-spinner-icon {
+    width: 100px !important;
+    height: 100px !important;
+    border-width: 10px !important;
+}
+.ng-progress-bar {
+    position: relative;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+    opacity: 0;
+    background-color: #000000b5 
+}
+.button{
+    cursor: pointer;
+    font-weight: bold;
+    outline: none;
+    color: #fff;
+    background-image: linear-gradient(to bottom, #EC0000, black 300%);
+    border: none;
+    margin-left: 10px;
+    float: right;
+}
+.button:hover {
+    background-image: linear-gradient(to bottom, #737373, black 300%);
+   ;
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: green !important;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background-color: green !important;
+}
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: green !important;
+}
+
+@media (max-width: 768px) {
+    #btnResponsive {
+        width: 100%;
+   }
+}
+
+.snack-bar-backgroundcontainer {
+    background-color: #b12221cf !important;
+}
+
+.snack-bar-backgroundcontainerExito {
+    background-color: #10e758 !important;
+}
+
+#cdk-overlay-9 {
+    margin-bottom: -25px !important;
+}
+#cdk-overlay-3 {
+    margin-bottom: -25px !important;
+}
+#cdk-overlay-2 {
+    margin-bottom: -25px !important;
+}
+#cdk-overlay-1 {
+    margin-bottom: -25px !important;
+}
+
+#swal2-title {
+    font-size: 20px !important;
+}
+
+#btnPopUp {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #3085d6;
+    color: #fff;
+    font-size: 1.0625em;
+    margin: .3125em;
+    padding: .625em 2em;
+    box-shadow: none;
+    font-weight: 500;
+}
+
+#btnPopUp:active {
+    background-image: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2));
+}

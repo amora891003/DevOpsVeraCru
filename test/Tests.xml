@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xFramium xmlns="http://www.xframium.org/xFramiumDriver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.xframium.org/xFramiumDriver http://www.xframium.org/xsd/xFramiumDriver.xsd">
+	<cloud provider="LOCAL" providerType="SELENIUM" name="xFramium" userName="" password="" hostName="" proxyHost="" />
+	<application  provider="LOCAL" name="CamaraWebApp" appPackage="" bundleId="" url="http://localhost:4200/" iosInstall="" androidInstall="" />
+	<devices provider="LOCAL">
+		<device name="Chrome Local" manufacturer="Google" model="Chrome" active="true" availableDevices="1" 
+			os="Windows" browserName="chrome" osVersion="8.1" cloud="EMBEDDED" />
+	</devices>
+	<driver suiteName="CamaraWebApp" type="WEB" outputFolder="test-output" displayResults="true" tagNames="demo" embeddedServer="true">
+		<artifact type="FAILURE_SOURCE" />
+		<artifact type="FAILURE_SOURCE_HTML" />
+		<artifact type="DEVICE_LOG" />
+		<artifact type="EXECUTION_RECORD_HTML" />
+		<artifact type="FAILURE_SOURCE_HTML" />
+		<artifact type="ALL_IN_ONE" />
+	</driver>
+	
+	<model provider="LOCAL" siteName="CamaraWebApp">
+		<page name="TabValFirma">
+			<element name="CAMARAWEB_TAB_VALCHEQUE" value="//*[@id='mat-tab-label-0-0']" descriptor="XPATH" />
+		</page>
+		<page name="ValidacionCheque">
+			<element name="VALCHEQUE_PORCENTAJE" value="//*[@id='porcentaje']" descriptor="XPATH" />
+			
+			<element name="VALCHEQUE_IMAGEN_FIRMA" value="//*[@id='idImagenValCheque']" descriptor="XPATH" />
+			
+			<element name="VALCHEQUE_CUENTA_CHEQUE" value="//*[@id='idCtaCheque']" descriptor="XPATH" />
+			<element name="VALCHEQUE_CUENTA_OPTION_CHEQUE" value="//*[@id='mat-option-1']" descriptor="XPATH" />
+			
+			<element name="VALCHEQUE_PANEL_REFERENCIAS" value="//*[@id='idChkPanelReferencia']" descriptor="XPATH" />
+			
+			<element name="VALCHEQUE_PANEL_EXPANSION_REFERENCIAS" value="//*[@id='idAccordionPnlReferencias']" descriptor="XPATH" />
+			<element name="VALCHEQUE_IMAGEN_REFERENCIA" value="//*[@id='idImagenChequeReferencia']" descriptor="XPATH" />
+			<element name="VALCHEQUE_TITULAR_REFERENCIA" value="//*[@id='idTitularChequeReferencia']" descriptor="XPATH" />
+			<element name="VALCHEQUE_TITULAR_OPTION_REFERENCIA" value="//*[@id='mat-option-8']" descriptor="XPATH" />
+			<element name="VALCHEQUE_AGREGAR_REFERENCIA" value="//*[@id='idBtnAgregarReferencia']" descriptor="XPATH" />
+			<element name="VALCHEQUE_GUARDAR_REFERENCIA" value="//*[@id='idBtnGuardarReferencia']" descriptor="XPATH" />
+			<element name="VALCHEQUE_POPUP_REFERENCIA" value="//*[@class='swal2-confirm swal2-styled']" descriptor="XPATH" />
+			
+			<element name="VALCHEQUE_PANEL_EXPANSION_ELIMINAR_REFERENCIAS" value="//*[@id='idAccordionPnlEliminarReferencias']" descriptor="XPATH" />						
+			<element name="VALCHEQUE_TITULAR_ELIMINAR_REFERENCIA" value="//*[@id='idEliminarTitularChequeReferencia']" descriptor="XPATH" />
+			<element name="VALCHEQUE_TITULAR_OPTION_ELIMINAR_REFERENCIA" value="//*[@id='mat-option-10']" descriptor="XPATH" />
+			<element name="VALCHEQUE_ELIMINAR_REFERENCIA" value="//*[@id='idBtnEliminarReferencia']" descriptor="XPATH" />
+			
+			<element name="VALCHEQUE_VALIDAR_FIRMA" value="//*[@id='idBtnValidarFirma']" descriptor="XPATH" />
+		</page>
+		<page name="TabExtracFirma">
+			<element name="CAMARAWEB_TAB_EXTRACFIRMA" value="//*[@id='mat-tab-label-0-1']" descriptor="XPATH" />
+		</page>
+		<page name="ExtraccionFirma">
+			<element name="EXTRACFIRMA_IMAGEN_CONTRATO" value="//*[@id='idExtraImagen']" descriptor="XPATH" />
+			<element name="EXTRACFIRMA_CUENTA_CONTRATO" value="//*[@id='idCtaContrato']" descriptor="XPATH" />
+			<element name="EXTRACFIRMA_CUENTA_OPTION_CONTRATO" value="//*[@id='mat-option-4']" descriptor="XPATH" />
+			<element name="EXTRACFIRMA_TITULAR_CONTRATO" value="//*[@id='idTitularContrato']" descriptor="XPATH" />
+			<element name="EXTRACFIRMA_TITULAR_OPTION_CONTRATO" value="//*[@id='mat-option-6']" descriptor="XPATH" />
+			<element name="EXTRACFIRMA_EXTRAER_REFERENCIA" value="//*[@id='idBtnExtracRef']" descriptor="XPATH" />
+			<element name="EXTRACFIRMA_BTN_EXTRAER" value="//*[@id='idBtnOk']" descriptor="XPATH" />
+		</page>
+	</model>
+	
+	<suite provider="LOCAL">
+	
+  		<test name="TEST-CAMARAWEB-002" active="true" tagNames="demo">
+			<step name="CAMARAWEB_TAB_VALCHEQUE" type="EXISTS" page="TabValFirma" />
+			<step name="CAMARAWEB_TAB_VALCHEQUE" type="CLICK" page="TabValFirma" />
+			<step name="checkPoint" type="STATE" page="TabValFirma" />
+		
+			<step name="VALCHEQUE_PORCENTAJE" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_PORCENTAJE" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_PORCENTAJE" type="SET" page="ValidacionCheque">
+			<parameter type="STATIC" value="20" />
+			</step>
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+
+			<step name="VALCHEQUE_IMAGEN_FIRMA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_IMAGEN_FIRMA" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_IMAGEN_FIRMA" type="SET" page="ValidacionCheque">
+			<parameter type="FILE" value="C:/POCBANORTE/cheque_Jean.tif" usage="INPUT" />
+			  <token type="STATIC" name="amt" value="100000" />
+			  <token type="STATIC" name="rate" value="5" />
+			  <token type="STATIC" name="term" value="360" />			
+			</step>
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_CUENTA_CHEQUE" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_CUENTA_CHEQUE" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_CUENTA_OPTION_CHEQUE" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_CUENTA_OPTION_CHEQUE" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_PANEL_REFERENCIAS" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_PANEL_REFERENCIAS" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_PANEL_EXPANSION_REFERENCIAS" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_PANEL_EXPANSION_REFERENCIAS" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+			
+			<step name="VALCHEQUE_IMAGEN_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_IMAGEN_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_IMAGEN_REFERENCIA" type="SET" page="ValidacionCheque">
+			<parameter type="FILE" value="C:/POCBANORTE/firmas_9200000401.jpg" usage="INPUT" />
+			  <token type="STATIC" name="amt" value="100000" />
+			  <token type="STATIC" name="rate" value="5" />
+			  <token type="STATIC" name="term" value="360" />			
+			</step>
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+			
+			<step name="VALCHEQUE_TITULAR_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_TITULAR_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_TITULAR_OPTION_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_TITULAR_OPTION_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_AGREGAR_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_AGREGAR_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_GUARDAR_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_GUARDAR_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+					
+		  	<step name="VALCHEQUE_POPUP_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_POPUP_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+			
+			<step name="EXTRACFIRMA_IMAGEN_CONTRATO" page="ExtraccionFirma" type="WAIT">
+				<parameter type="STATIC" name="Wait Time" value="4" />
+			</step >
+	
+		  	<step name="VALCHEQUE_VALIDAR_FIRMA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_VALIDAR_FIRMA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+			
+			<step name="EXTRACFIRMA_IMAGEN_CONTRATO" page="ExtraccionFirma" type="WAIT">
+				<parameter type="STATIC" name="Wait Time" value="8" />
+			</step >
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />			
+		</test>
+		
+  		<test name="TEST-CAMARAWEB-001" active="true" tagNames="demo">
+
+			<step name="VALCHEQUE_CUENTA_CHEQUE" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_CUENTA_CHEQUE" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_CUENTA_OPTION_CHEQUE" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_CUENTA_OPTION_CHEQUE" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_PANEL_REFERENCIAS" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_PANEL_REFERENCIAS" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_PANEL_EXPANSION_ELIMINAR_REFERENCIAS" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_PANEL_EXPANSION_ELIMINAR_REFERENCIAS" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+			
+			<step name="VALCHEQUE_TITULAR_ELIMINAR_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_TITULAR_ELIMINAR_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="VALCHEQUE_TITULAR_OPTION_ELIMINAR_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_TITULAR_OPTION_ELIMINAR_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+
+			<step name="VALCHEQUE_ELIMINAR_REFERENCIA" type="EXISTS" page="ValidacionCheque" />
+			<step name="VALCHEQUE_ELIMINAR_REFERENCIA" type="CLICK" page="ValidacionCheque" />
+			<step name="checkPoint" type="STATE" page="ValidacionCheque" />
+			
+			<step name="EXTRACFIRMA_IMAGEN_CONTRATO" page="ExtraccionFirma" type="WAIT">
+				<parameter type="STATIC" name="Wait Time" value="4" />
+			</step >				
+		</test>		
+		
+ 		<test name="TEST-CAMARAWEB-003" active="true" tagNames="demo">
+		  <step name="CAMARAWEB_TAB_EXTRACFIRMA" type="EXISTS" page="TabExtracFirma" />
+		  <step name="CAMARAWEB_TAB_EXTRACFIRMA" type="CLICK" page="TabExtracFirma" />
+		  <step name="checkPoint" type="STATE" page="TabExtracFirma" />		
+			
+ 		  <step name="EXTRACFIRMA_IMAGEN_CONTRATO" type="EXISTS" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_IMAGEN_CONTRATO" type="CLICK" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_IMAGEN_CONTRATO" type="SET" page="ExtraccionFirma">
+			<parameter type="FILE" value="C:/SignaturaExtractorTest/recorte1_0.jpg" usage="INPUT" />
+			  <token type="STATIC" name="amt" value="100000" />
+			  <token type="STATIC" name="rate" value="5" />
+			  <token type="STATIC" name="term" value="360" />			
+		  </step>
+		  <step name="checkPoint" type="STATE" page="ExtraccionFirma" />
+
+ 		  <step name="EXTRACFIRMA_CUENTA_CONTRATO" type="EXISTS" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_CUENTA_CONTRATO" type="CLICK" page="ExtraccionFirma" />
+		  
+		  <step name="EXTRACFIRMA_CUENTA_OPTION_CONTRATO" type="EXISTS" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_CUENTA_OPTION_CONTRATO" type="CLICK" page="ExtraccionFirma" />
+		  <step name="checkPoint" type="STATE" page="ExtraccionFirma" />
+		  
+		  <step name="EXTRACFIRMA_TITULAR_CONTRATO" type="EXISTS" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_TITULAR_CONTRATO" type="CLICK" page="ExtraccionFirma" />
+		  
+		  <step name="EXTRACFIRMA_TITULAR_OPTION_CONTRATO" type="EXISTS" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_TITULAR_OPTION_CONTRATO" type="CLICK" page="ExtraccionFirma" />
+		  <step name="checkPoint" type="STATE" page="ExtraccionFirma" />
+		  
+		  <step name="EXTRACFIRMA_EXTRAER_REFERENCIA" type="EXISTS" page="ExtraccionFirma" />
+		  <step name="EXTRACFIRMA_EXTRAER_REFERENCIA" type="CLICK" page="ExtraccionFirma" />
+		  <step name="checkPoint" type="STATE" page="ExtraccionFirma" />
+		  
+		  <step name="EXTRACFIRMA_IMAGEN_CONTRATO" page="ExtraccionFirma" type="WAIT">
+			<parameter type="STATIC" name="Wait Time" value="25" />
+		  </step >
+		</test>
+		
+		<function name="checkResult">
+			<step name="RESULT" type="EXISTS" page="CamaraWebApp" failureMode="IGNORE" context="textValue">
+				<token name="resultIndex" type="CONTEXT" value="_LOOP.INDEX" />
+				<token name="urlToken" type="STATIC" value="xFramium" />
+				<step name="ADD_TO_REPORT" type="REPORT" page="CamaraWebApp">
+					<parameter type="STATIC" value="URL Link Name" />
+					<parameter type="CONTEXT" value="textValue" />
+					<parameter type="STATIC" value="Result Index" />
+					<parameter type="CONTEXT" value="_LOOP.INDEX" />
+				</step>
+				<step name="URL" type="DEVICE" page="CamaraWebApp">
+					<parameter type="STATIC" value="http://www.xFramium.org" />
+				</step>
+				<step name="BREAK" type="BREAK" page="CamaraWebApp" />
+				<step name="elseCondition" type="ELSE" page="CamaraWebApp">
+					<step name="ADD_TO_REPORT" type="REPORT" page="CamaraWebApp">
+						<parameter type="STATIC" value="Result Index" />
+						<parameter type="CONTEXT" value="_LOOP.INDEX" />
+					</step>
+				</step>
+			</step>
+		</function>
+	</suite>
+</xFramium>
